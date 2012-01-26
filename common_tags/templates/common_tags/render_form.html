@@ -1,0 +1,28 @@
+{% load common_tags %}
+{% if method != 'inner' %}
+    <form action="{{ action }}" method="{{ method }}" class="{{ class_name|default:"main_form" }}"{% if id %} id="{{ id }}"{% endif %}>
+{% endif %}
+{% if not no_csrf and method != 'get' %}
+{% csrf_token %}
+{% endif %}
+{% if form.non_field_errors %}
+    <ul class="non_field_errors">
+    {% for error in form.non_field_errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+{% for field in form.visible_fields %}
+    <fieldset>
+        {% render_field field %}
+    </fieldset>
+{% endfor %}
+{% if method != 'inner' %}
+    {% if submit_text %}
+         {% submit_button submit_text %}
+    {% endif %}
+    </form>
+{% endif %}

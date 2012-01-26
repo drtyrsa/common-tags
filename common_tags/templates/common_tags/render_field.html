@@ -1,0 +1,12 @@
+{% load common_tags %}
+{# Если это радио или чекбокс, то инпут, а справа - лабел. Если нет, то лабел, а под ним - инпут. #}
+{% if field|checkbox_or_radio %}
+    {{ field }}&nbsp;<label for="{{ field.auto_id }}" class="field_label_inline">{% field_label field %}</label>
+{% else %}
+    <label for="{{ field.auto_id }}" class="field_label">{% field_label field %}</label>
+    {{ field }}
+{% endif %}
+{% if field.help_text %}
+    <span class="help_text">{{ field.help_text }}</span>
+{% endif %}
+{{ field.errors }}
