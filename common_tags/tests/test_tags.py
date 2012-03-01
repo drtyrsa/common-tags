@@ -83,9 +83,22 @@ class TestCommonTags(TestCase):
         self.assertTrue('<label for="id_name" class="field_label">You name<span class="required">*</span></label>' in out)
         self.assertTrue('<input id="id_name" type="text" name="name" maxlength="20" />' in out)
         self.assertTrue('<span class="help_text">Real name, please</span>' in out)
+        self.assertTrue('<fieldset>' in out)
 
         out = self._render_template(template_str, {'field': self.form['agreed']})
         self.assertTrue('<input type="checkbox" name="agreed" id="id_agreed" />&nbsp;<label for="id_agreed" class="field_label_inline">I am agreed<span class="required">*</span></label>' in out)
+        self.assertTrue('<fieldset>' in out)
+
+    def test_render_field_no_fieldset(self):
+        template_str = '''
+            {% load common_tags %}
+            {% render_field field no_fieldset=1 %}
+        '''
+        out = self._render_template(template_str, {'field': self.form['name']})
+        self.assertFalse('<fieldset>' in out)
+
+        out = self._render_template(template_str, {'field': self.form['agreed']})
+        self.assertFalse('<fieldset>' in out)
 
     def test_render_form_no_kwargs(self):
         template_str = '''
