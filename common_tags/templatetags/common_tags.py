@@ -50,11 +50,11 @@ def submit_button(context, text, no_fieldset=False):
     return {'text': text, 'no_fieldset': no_fieldset}
 register.easyinctag(submit_button, template_name='common_tags/submit_button.html')
 
-def render_field(context, field):
+def render_field(context, field, no_fieldset=False):
     '''
     Renders one form field: input, errors, help_text, etc.
     '''
-    return {'field': field}
+    return {'field': field, 'no_fieldset': no_fieldset}
 register.easyinctag(render_field, template_name='common_tags/render_field.html')
 
 def smart_date(date):

@@ -16,9 +16,7 @@
     {{ field }}
 {% endfor %}
 {% for field in form.visible_fields %}
-    <fieldset>
-        {% render_field field %}
-    </fieldset>
+    {% render_field field %}
 {% endfor %}
 {% if method != 'inner' %}
     {% if submit_text %}
